@@ -1,0 +1,185 @@
+    <!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cart</title>
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+
+        <section id="header">
+            <a href="#"><img src="img/logo.png" class="logo" alt=""></a>
+            <div>
+                <ul id="navbar">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="boys.html">Boys</a></li>
+                    <li><a href="girls.html">Girls</a></li>
+                    <li><a href="materials.html">Materials</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li id="lg-bag"><a class="active" href="cart.html"><i class="far fa-shopping-bag"></i></a></li>
+                    <a href="#" id="close"><i class="far fa-times"></i></a>
+                </ul>
+            </div>
+            <div id="mobile">
+                <a href="cart.html"><i class="far fa-shopping-bag"></i></a>
+                <i id="bar" class="fas fa-outdent"></i>
+            </div>
+        </section>
+
+        <section id="page-header" class="about-header">
+            <h2>#let's_talk</h2>
+            <p>LEAVE A MESSAGE, We love to hear from you!</p>
+        </section>
+
+        <div id="cart">
+
+        </div>
+
+        <section id="cart-add" class="section-p1">
+            <div id="coupan">
+                <h3>Apply Coupan</h3>
+                <div>
+                    <input type="text" placeholder="Enter Your Coupan">
+                    <button class="normal">Apply</button>
+                </div>
+            </div>
+
+            <div id="subtotal">
+                <h3>Cart Total</h3>
+                <table>
+                    <tr>
+                        <td>Cart Subtotal</td>
+                        <td>$150</td>
+                    </tr>
+                    <tr>
+                        <td>Shipping</td>
+                        <td>Free</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td><strong>$150</strong></td>
+                    </tr>
+                </table>
+                <a href="https://buy.stripe.com/test_eVa7uOgmk3uFfok3cc"><button class="normal">Proceed to checkout</button></a>
+            </div>
+        </section>
+
+        <!-- Footer -->
+
+        <footer class="section-p1">
+            <div class="col">
+                <img class="logo" src="img/logo.png" alt="">
+                <h4>Contact</h4>
+                <p><strong>Address: </strong> Sarala Birla University Mahilong, Ranchi</p>
+                <p><strong>Phone: </strong> +01 2345 6789 /(+91) 01 2345 6789</p>
+                <p><strong>Hours: </strong> 10:00 - 16:00, Mon-Sat</p>
+                <div class="follow">
+                    <h4>Follow us</h4>
+                    <div class="icon">
+                        <i class="fab fa-facebook-f"></i>
+                        <i class="fab fa-twitter"></i>
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-pinterest"></i>
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <h4>About</h4>
+                <a href="$">About us</a>
+                <a href="$">Delivery Information</a>
+                <a href="$">Privacy Policy</a>
+                <a href="$">Terms & Conditions</a>
+                <a href="$">Contact us</a>
+            </div>
+
+            <div class="col">
+                <h4>My Account</h4>
+                <a href="$">Sign In</a>
+                <a href="$">View Cart</a>
+                <a href="$">My Wishlist</a>
+                <a href="$">Track My Order</a>
+                <a href="$">Help</a>
+            </div>
+
+            <div class="col install">
+                <h4>Install App</h4>
+                <p>From App Store or Google Play</p>
+                <div class="row">
+                    <img src="img/pay/app.jpg" alt="">
+                    <img src="img/pay/play.jpg" alt="">
+                </div>
+                <p>Secured Payment Gateways</p>
+                <img src="img/pay/pay.png" alt="">
+            </div>
+            
+            <div class="copyright">
+                <p>@ 2024, Sarala Birla University - All Rights Are Reserved</p>
+            </div>
+
+        </footer>
+
+                <!-- Script Code -->
+
+<script>
+       // Get the products array from local storage
+const products = JSON.parse(localStorage.getItem("products")) || [];
+
+// Loop through the products array
+products.forEach(function(product) {
+  // Create a new div element for the product
+  const productDiv = document.createElement("div");
+
+  // Add the product information to the div element
+  productDiv.innerHTML = `
+    <img src="${product.image}">
+    <p>${product.name}</p>
+    <p>${product.price}</p>
+    <p>${product.quantity}</p>
+    <button class="fa fa-trash cart-remove normal" data-product-id="${product.id}">Remove</button>
+  `;
+
+  // Append the div element to the cart div element
+  const cart = document.getElementById("cart");
+  cart.appendChild(productDiv);
+
+  // Add event listener to the remove button
+  const removeButton = productDiv.querySelector(".cart-remove");
+  removeButton.addEventListener("click", removeCartItem);
+});
+
+// Define the removeCartItem function
+function removeCartItem(event) {
+  // Get the parent div element of the remove button
+  const productDiv = event.target.parentElement;
+
+  // Get the product ID from the data attribute
+  const productId = productDiv.querySelector(".cart-remove").dataset.productId;
+
+  // Get the products array from local storage
+  let products = JSON.parse(localStorage.getItem("products"));
+
+  // Find the product in the products array and remove it
+  products = products.filter(function(product) {
+    return product.id!== productId;
+  });
+
+  // Store the updated products array in local storage
+  localStorage.setItem("products", JSON.stringify(products));
+
+  // Remove the div element from the cart
+  productDiv.remove();
+}
+</script>
+
+        <script src="script.js"></script>
+    </body>
+
+</html>
